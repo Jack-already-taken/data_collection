@@ -1,6 +1,6 @@
 """
 This model is based on BERT
-https://huggingface.co/ProsusAI/finbert
+https://huggingface.co/finiteautomata/bertweet-base-sentiment-analysis
 """
 # Use a pipeline as a high-level helper	
 import sys
@@ -17,7 +17,7 @@ def main(argv):
 	test_dir = sys.argv[2]
 	fs = open(test_dir + "sentences.txt")
 	sentences = [next(fs).rstrip() for _ in range(2000)]
-	pipe = pipeline("text-classification", model="ProsusAI/finbert", device = 0 if torch.cuda.is_available() else -1, truncation = True)
+	pipe = pipeline("text-classification", model="finiteautomata/bertweet-base-sentiment-analysis", device = 0 if torch.cuda.is_available() else -1, truncation = True)
 	for sentence in sentences:
 		result = pipe(sentence)
 		#print(sentence + "\n" + str(result))

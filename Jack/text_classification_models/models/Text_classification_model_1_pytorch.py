@@ -16,13 +16,12 @@ def main(argv):
 
 	test_dir = sys.argv[2]
 	fs = open(test_dir + "sentences.txt")
-	sentences = [line.rstrip() for line in fs]
-	pipe = pipeline("text-classification", model="Hansaht/Text_classification_model_1_pytorch", device = 0 if torch.cuda.is_available() else -1)
+	sentences = [next(fs).rstrip() for _ in range(2000)]
+	pipe = pipeline("text-classification", model="Hansaht/Text_classification_model_1_pytorch", device = 0 if torch.cuda.is_available() else -1, truncation = True)
 	
-	for i in range(5):
-		for sentence in sentences:
-			result = pipe(sentence)
-			#print(sentence + "\n" + str(result))
+	for sentence in sentences:
+		result = pipe(sentence)
+		#print(sentence + "\n" + str(result))
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
